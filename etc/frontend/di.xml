@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<!--
+  ~ Copyright (c) 2021. All rights reserved.
+  ~ @author: Volodymyr Hryvinskyi <mailto:volodymyr@hryvinskyi.com>
+  -->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Hryvinskyi\SeoCanonicalCatalogProductFrontend\Model\CanonicalUrlProcess">
+        <arguments>
+            <argument name="actions" xsi:type="array">
+                <item name="catalog_product_view" xsi:type="string">catalog_product_view</item>
+                <item name="review_product_list" xsi:type="string">review_product_list</item>
+                <item name="review_product_view" xsi:type="string">review_product_view</item>
+                <item name="productquestions_show_index" xsi:type="string">productquestions_show_index</item>
+            </argument>
+            <argument name="associatedProductProcessor"
+                      xsi:type="object">Hryvinskyi\SeoCanonicalCatalogProductFrontend\Model\CanonicalUrl\ProductProcessor</argument>
+        </arguments>
+    </type>
+
+    <type name="Hryvinskyi\SeoCanonicalFrontend\Model\CanonicalUrlProcessor">
+        <arguments>
+            <argument name="items" xsi:type="array">
+                <item name="product" xsi:type="array">
+                    <item name="object" xsi:type="object">Hryvinskyi\SeoCanonicalCatalogProductFrontend\Model\CanonicalUrlProcess</item>
+                    <item name="sortOrder" xsi:type="number">100</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+
+    <virtualType name="Hryvinskyi\SeoCanonicalCatalogProductFrontend\Model\CanonicalUrl\ProductProcessor"
+                 type="Hryvinskyi\SeoCanonicalApi\Api\CanonicalUrl\Processor"/>
+</config>
